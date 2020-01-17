@@ -11,14 +11,12 @@ data class User(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     var name: String?,
-    var gender: Int,
-    var hobby:String?
+    var gender: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
-        parcel.readInt(),
-        parcel.readString()
+        parcel.readInt()
     ) {
     }
 
@@ -26,7 +24,6 @@ data class User(
         parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeInt(gender)
-        parcel.writeString(hobby)
     }
 
     override fun describeContents(): Int {

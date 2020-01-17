@@ -31,7 +31,7 @@ public final class UserDao_Impl implements UserDao {
     this.__insertionAdapterOfUser = new EntityInsertionAdapter<User>(__db) {
       @Override
       public String createQuery() {
-        return "INSERT OR ABORT INTO `User`(`id`,`name`,`gender`,`hobby`) VALUES (nullif(?, 0),?,?,?)";
+        return "INSERT OR ABORT INTO `User`(`id`,`name`,`gender`) VALUES (nullif(?, 0),?,?)";
       }
 
       @Override
@@ -43,11 +43,6 @@ public final class UserDao_Impl implements UserDao {
           stmt.bindString(2, value.getName());
         }
         stmt.bindLong(3, value.getGender());
-        if (value.getHobby() == null) {
-          stmt.bindNull(4);
-        } else {
-          stmt.bindString(4, value.getHobby());
-        }
       }
     };
     this.__deletionAdapterOfUser = new EntityDeletionOrUpdateAdapter<User>(__db) {
@@ -64,7 +59,7 @@ public final class UserDao_Impl implements UserDao {
     this.__updateAdapterOfUser = new EntityDeletionOrUpdateAdapter<User>(__db) {
       @Override
       public String createQuery() {
-        return "UPDATE OR ABORT `User` SET `id` = ?,`name` = ?,`gender` = ?,`hobby` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `User` SET `id` = ?,`name` = ?,`gender` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -76,12 +71,7 @@ public final class UserDao_Impl implements UserDao {
           stmt.bindString(2, value.getName());
         }
         stmt.bindLong(3, value.getGender());
-        if (value.getHobby() == null) {
-          stmt.bindNull(4);
-        } else {
-          stmt.bindString(4, value.getHobby());
-        }
-        stmt.bindLong(5, value.getId());
+        stmt.bindLong(4, value.getId());
       }
     };
   }
@@ -136,7 +126,6 @@ public final class UserDao_Impl implements UserDao {
           final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
           final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
           final int _cursorIndexOfGender = _cursor.getColumnIndexOrThrow("gender");
-          final int _cursorIndexOfHobby = _cursor.getColumnIndexOrThrow("hobby");
           final java.util.List<com.axe.roomdome.bean.User> _result = new java.util.ArrayList<com.axe.roomdome.bean.User>(_cursor.getCount());
           while(_cursor.moveToNext()) {
             final com.axe.roomdome.bean.User _item;
@@ -146,9 +135,7 @@ public final class UserDao_Impl implements UserDao {
             _tmpName = _cursor.getString(_cursorIndexOfName);
             final int _tmpGender;
             _tmpGender = _cursor.getInt(_cursorIndexOfGender);
-            final java.lang.String _tmpHobby;
-            _tmpHobby = _cursor.getString(_cursorIndexOfHobby);
-            _item = new com.axe.roomdome.bean.User(_tmpId,_tmpName,_tmpGender,_tmpHobby);
+            _item = new com.axe.roomdome.bean.User(_tmpId,_tmpName,_tmpGender);
             _result.add(_item);
           }
           if(_result == null) {
@@ -178,7 +165,6 @@ public final class UserDao_Impl implements UserDao {
       final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
       final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
       final int _cursorIndexOfGender = _cursor.getColumnIndexOrThrow("gender");
-      final int _cursorIndexOfHobby = _cursor.getColumnIndexOrThrow("hobby");
       final User _result;
       if(_cursor.moveToFirst()) {
         final int _tmpId;
@@ -187,9 +173,7 @@ public final class UserDao_Impl implements UserDao {
         _tmpName = _cursor.getString(_cursorIndexOfName);
         final int _tmpGender;
         _tmpGender = _cursor.getInt(_cursorIndexOfGender);
-        final String _tmpHobby;
-        _tmpHobby = _cursor.getString(_cursorIndexOfHobby);
-        _result = new User(_tmpId,_tmpName,_tmpGender,_tmpHobby);
+        _result = new User(_tmpId,_tmpName,_tmpGender);
       } else {
         _result = null;
       }

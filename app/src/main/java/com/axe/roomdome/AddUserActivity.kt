@@ -50,7 +50,7 @@ class AddUserActivity : AppCompatActivity() {
         }
 
 
-        var user = User(0, name, gender,"")
+        var user = User(0, name, gender)
         try {
             AppDataBase.getInstance(this).userDao().insertUser(user)
             finish()

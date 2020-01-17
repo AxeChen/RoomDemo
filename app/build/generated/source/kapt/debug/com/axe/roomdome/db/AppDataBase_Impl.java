@@ -27,12 +27,12 @@ public final class AppDataBase_Impl extends AppDataBase {
 
   @Override
   protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration configuration) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(2) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(SupportSQLiteDatabase _db) {
-        _db.execSQL("CREATE TABLE IF NOT EXISTS `User` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `gender` INTEGER NOT NULL, `hobby` TEXT)");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `User` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `gender` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"59c39c2d3a60fce8a388d9dbd833df01\")");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b005e4c033b7ea54aa42ccec5144d8b3\")");
       }
 
       @Override
@@ -62,11 +62,10 @@ public final class AppDataBase_Impl extends AppDataBase {
 
       @Override
       protected void validateMigration(SupportSQLiteDatabase _db) {
-        final HashMap<String, TableInfo.Column> _columnsUser = new HashMap<String, TableInfo.Column>(4);
+        final HashMap<String, TableInfo.Column> _columnsUser = new HashMap<String, TableInfo.Column>(3);
         _columnsUser.put("id", new TableInfo.Column("id", "INTEGER", true, 1));
         _columnsUser.put("name", new TableInfo.Column("name", "TEXT", false, 0));
         _columnsUser.put("gender", new TableInfo.Column("gender", "INTEGER", true, 0));
-        _columnsUser.put("hobby", new TableInfo.Column("hobby", "TEXT", false, 0));
         final HashSet<TableInfo.ForeignKey> _foreignKeysUser = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesUser = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoUser = new TableInfo("User", _columnsUser, _foreignKeysUser, _indicesUser);
@@ -77,7 +76,7 @@ public final class AppDataBase_Impl extends AppDataBase {
                   + " Found:\n" + _existingUser);
         }
       }
-    }, "59c39c2d3a60fce8a388d9dbd833df01", "d13cb1ce2d65a23af9c281bddb8260df");
+    }, "b005e4c033b7ea54aa42ccec5144d8b3", "6b5803b33f0403e98da1ebff8b54af9a");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)
